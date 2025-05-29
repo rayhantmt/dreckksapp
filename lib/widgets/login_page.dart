@@ -23,7 +23,7 @@ class _LoginPageState extends State<LoginPage> {
   bool Signup = true;
   bool user = true;
   bool serviceprovider = false;
-  bool isChecked=false;
+  bool isChecked = false;
   final TextEditingController namecontroller = TextEditingController();
   final TextEditingController numbercontroller = TextEditingController();
   final TextEditingController agecontroller = TextEditingController();
@@ -36,50 +36,186 @@ class _LoginPageState extends State<LoginPage> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
-          "Login Form Goes Here",
-          style: AppTextStyle.roboto(fontSize: 16, fontWeight: FontWeight.w500),
+       
+        CustomTextFormField(
+          label: 'Email',
+          hint: 'Enter your email',
+          controller: emailcontroller,
         ),
-         CustomTextFormField(
-            label: 'Email',
-            hint: 'Enter your email',
-            controller: emailcontroller,
+        CustomTextFormField(
+          label: 'Password',
+          hint: 'Enter your passwoed',
+          controller: passwordcontroller,
+          obscureText: _obscurePassword ? true : false,
+          suffixIcon: IconButton(
+            icon: Icon(
+              _obscurePassword
+                  ? Icons.visibility_off_outlined
+                  : Icons.visibility_outlined,
+              color: Colors.white70,
+            ),
+            onPressed: () {
+              setState(() {
+                _obscurePassword = !_obscurePassword;
+              });
+            },
           ),
-          CustomTextFormField(
-            label: 'Password',
-            hint: 'Enter your passwoed',
-            controller: passwordcontroller,
-            obscureText: _obscurePassword ? true : false,
-            suffixIcon: IconButton(
-              icon: Icon(
-                _obscurePassword
-                    ? Icons.visibility_off_outlined
-                    : Icons.visibility_outlined,
-                color: Colors.white70,
-              ),
-              onPressed: () {
+        ),
+
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Checkbox(
+              value: isChecked,
+              onChanged: (bool? value) {
                 setState(() {
-                  _obscurePassword = !_obscurePassword;
-                
+                  isChecked = value!;
                 });
               },
+              activeColor: Colors.white,
+              checkColor: Colors.black,
+              side: const BorderSide(color: Colors.white),
+              shape: const CircleBorder(),
+            ),
+            Text(
+              'Remember Me',
+              style: AppTextStyle.roboto(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            SizedBox(width: 90),
+            Text(
+              'Forgot Password ?',
+              style: AppTextStyle.roboto(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: Color(0xFFFF503C),
+              ),
+            ),
+          ],
+        ),
+
+        Container(
+          height: 42,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(40),
+            color: Color(0xFF00C1C9),
+          ),
+
+          child: Center(
+            child: Text(
+              'Sign In',
+              style: AppTextStyle.roboto(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ),
+
+        SizedBox(height: 10),
+        Row(
+          children: [
+            Expanded(
+              child: Divider(
+                color: Color(0x38FFFFFF).withOpacity(0.22),
+                thickness: 1,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Text(
+                'or',
+                style: AppTextStyle.roboto(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            Expanded(
+              child: Divider(
+                color: Color(0x38FFFFFF).withOpacity(0.22),
+                thickness: 1,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 12),
+        Container(
+          height: 42,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(40),
+            color: Colors.transparent,
+            border: Border.all(
+              color: Color(0xFFC2C2C2), // #C2C2C2
+              width: 1,
             ),
           ),
 
-          Row(children: [
-             Checkbox(
-          value: isChecked,
-          onChanged: (bool? value) {
-            setState(() {
-              isChecked = value!;
-            });
-          },
-          activeColor: Colors.white,
-          checkColor: Colors.black,
-          side: const BorderSide(color: Colors.white),
-          shape: const CircleBorder(),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                height: 18,
+                width: 18,
+                child: Image.asset('assets/images/google.png'),
+              ),
+              SizedBox(width: 8),
+
+              Text(
+                'Continue with Google',
+
+                style: AppTextStyle.roboto(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
         ),
-          ],)
+
+SizedBox(height: 12,),
+
+  Container(
+          height: 42,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(40),
+            color: Colors.transparent,
+            border: Border.all(
+              color: Color(0xFFC2C2C2), // #C2C2C2
+              width: 1,
+            ),
+          ),
+
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                height: 23,
+                width: 23,
+                child: Image.asset('assets/images/apple.png',
+                fit: BoxFit.fill,
+                ),
+              ),
+              SizedBox(width: 8),
+
+              Text(
+                'Continue with Apple',
+
+                style: AppTextStyle.roboto(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        ),
+SizedBox(height: 300,)
+
       ],
     );
   }
@@ -220,7 +356,9 @@ class _LoginPageState extends State<LoginPage> {
           TickBox(),
           SizedBox(height: 10),
           InkWell(
-            onTap: () {Get.to(()=>VerifyScreen());},
+            onTap: () {
+              Get.to(() => VerifyScreen());
+            },
             child: Container(
               height: 42,
               width: double.infinity,
@@ -228,10 +366,18 @@ class _LoginPageState extends State<LoginPage> {
                 borderRadius: BorderRadius.circular(40),
                 color: Color(0xFF00C1C9),
               ),
-              child: Center(child: Text('Verify Email',style: AppTextStyle.roboto(fontSize: 14, fontWeight: FontWeight.w500),)),
+              child: Center(
+                child: Text(
+                  'Verify Email',
+                  style: AppTextStyle.roboto(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
             ),
           ),
-          SizedBox(height: 20,)
+          SizedBox(height: 20),
         ],
       ),
     );
@@ -275,7 +421,7 @@ class _LoginPageState extends State<LoginPage> {
                   fontWeight: FontWeight.w400,
                 ),
               ),
-      
+
               Container(
                 height: 40,
                 width: 214,
@@ -312,7 +458,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-      
+
                     InkWell(
                       onTap: () {
                         setState(() {
@@ -343,7 +489,7 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
               ),
-      
+
               Expanded(child: Signup ? _buildSignupForm() : _buildLoginForm()),
             ],
           ),
